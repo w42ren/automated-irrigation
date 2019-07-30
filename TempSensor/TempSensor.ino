@@ -39,14 +39,15 @@ void setup() {
 void loop() {
   digitalWrite(23, 1);                                  //D8 to power sensor
   delay(20);                                            //power to sensor time
-  analogInput1 = analogRead(A0);                         //read analog input value
+  
+  String analogInput = String (analogRead(A0), DEC);//read analog input value
   Serial.println(analogRead(A0));                       //print analog input value to serial port 
   digitalWrite(23, 0);                                  //set digital pin D8 low unpower sensor
   //Serial.println(analogInput);
   //Serial.println("Turn led on");
   if ((WiFi.status() == WL_CONNECTED)) {                     //Check the current connection status
     HTTPClient http; 
-    String URL =  String ("http://192.168.1.5/data/put/temp1/" + analogInput1); // Works with HTTP
+    String URL =  String ("http://192.168.1.5/data/put/temp1/" + analogInput); // Works with HTTP
        http.begin(URL); // Works with HTTP
        int httpCode = http.GET();                               //Make the request
     http.end();
