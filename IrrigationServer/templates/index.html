@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
-    <title>FlaskBlog</title>
+    <title>Automated Irrigation</title>
 </head>
 <body>
    <h1>Welcome to Flask Application</h1>
-<form action="/foo" method="post">
-    <button type="submit" value="Send Digital 4" />
+
+<form>
+	{% if btn1 %}
+    <button type="submit" class="button" name="pin4" value="on" formaction="/toggle_pin_4" method="post"><br>Pin 4</button>
+    {% else %}
+    <button type="submit" class="button2" name="pin4" value="off" formaction="/toggle_pin_4" method="post"><br>Pin 4</button>
+	{% endif %}
+    <button type="submit" value="Send Digital 5" formaction="/toggle_pin_5" method="post">  <p>Check Yun pin 5</p>  
 </form>
-<p>Check Yun Pin 4</p> 
-<form action="/bar" method="post">
-    <button type="submit" value="Send Digital 5" />
-</form>
-<p>Check Yun pin 5</p>
+
 </body>
 </html>

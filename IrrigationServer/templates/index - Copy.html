@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <title>FlaskBlog</title>
+</head>
+<body>
+   <h1>Welcome to Flask Application</h1>
+<form action="/toggle_pin_4" method="post">
+    <button type="submit" value="Send Digital 4" />
+</form>
+<p>Check Yun Pin 4</p> 
+<form action="/bar" method="post">
+    <button type="submit" value="Send Digital 5" />
+</form>
+<p>Check Yun pin 5</p>
+</body>
+</html>
