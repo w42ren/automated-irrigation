@@ -7,13 +7,18 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    btn1 = True
-    return render_template('index.html', btn=False)
-
+    btn4 = False
+    btn5 = False
+    api_url = "https://192.168.0.5/arduino/mode/4/output"
+    headers = { "Accept": "text/html",
+            "Content-type":"text/html"
+          }
+    resp = requests.get(api_url, headers=headers, verify=False)
+    return render_template('buttons.html', btn=False)
+    
 @app.route('/foo', methods=['GET', 'POST'])
-
 def foo(x=None, y=None):
-    api_url = "https://192.168.0.5/arduino/digital/4"
+    api_url = "https://192.168.0.5/arduino/digital/4/1"
     headers = { "Accept": "text/html",
             "Content-type":"text/html"
           }
@@ -26,7 +31,7 @@ def foo(x=None, y=None):
 @app.route('/bar', methods=['GET', 'POST'])
 
 def bar(x=None, y=None):
-    api_url = "https://192.168.0.5/arduino/digital/5"
+    api_url = "https://192.168.0.5/arduino/digital/5/1"
     headers = { "Accept": "text/html",
             "Content-type":"text/html"
           }
@@ -39,48 +44,52 @@ def bar(x=None, y=None):
     
 @app.route('/toggle_pin_4', methods=['GET', 'POST'])
 def toggle_pin_4 ():
-    btn = True
+    # btn = True 
     if request.method == 'POST':
         if request.form['pin4'] == 'off':
-            btn = False
+            btn4 = False
         elif request.form['pin4'] == 'on':
-            btn = True
+            btn4 = True
     if request.method == 'GET':
         if request.args['pin4'] == 'off':
-            btn = False
+            btn4 = False
         elif request.args['pin4'] == 'on':
-            btn = True
-    base_url = "https://192.168.0.5/arduino/digital/"
-    api_url = urljoin(base_url,'4')
+            btn4 = True
+    base_url = "https://192.168.0.5/arduino/digital/4/"
+    if btn4 == True : state = '1'
+    else : state= '0'
+    api_url = urljoin(base_url,state)
     headers = { "Accept": "text/html",
             "Content-type":"text/html"
           }
     resp = requests.get(api_url, headers=headers, verify=False)
 
-    return render_template('buttons.html', pin4 = btn, response = resp)
+    return render_template('buttons.html', pin4 = btn4, response = resp)
     pass
 
 @app.route('/toggle_pin_5', methods=['GET', 'POST'])
 def toggle_pin_5 ():
-    btn = True
+    # btn = True
     if request.method == 'POST':
         if request.form['pin5'] == 'off':
-            btn = False
+            btn5 = False
         elif request.form['pin5'] == 'on':
-            btn = True
+            btn5 = True
     if request.method == 'GET':
         if request.args['pin5'] == 'off':
-            btn = False
+            btn5 = False
         elif request.args['pin5'] == 'on':
-            btn = True
-    base_url = "https://192.168.0.5/arduino/digital/"
-    api_url = urljoin(base_url,'5')
+            btn5 = True
+    base_url = "https://192.168.0.5/arduino/digital/5/"
+    if btn5 == True : state = '1'
+    else : state= '0'
+    api_url = urljoin(base_url,state)
     headers = { "Accept": "text/html",
             "Content-type":"text/html"
           }
     resp = requests.get(api_url, headers=headers, verify=False)
 
-    return render_template('buttons.html', pin5 = btn, response = resp)
+    return render_template('buttons.html', pin5 = btn5, response = resp)
     pass
 
 app.run(host='0.0.0.0', port=80)
